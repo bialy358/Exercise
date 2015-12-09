@@ -1,0 +1,17 @@
+connection: &connection
+  adapter: postgresql
+  encoding: unicode
+  host:     localhost
+  pool: 5
+  username: postgres
+  password:
+
+development:
+  <<: *connection
+  database: auction_house_development
+
+
+test: &test
+  <<: *connection
+  database: auction_house_test
+
