@@ -1,2 +1,4 @@
 Excersie with buliding auction house app
 =================
+
+Travis status: ![https://travis-ci.org/bialy358/Exersice.svg]
