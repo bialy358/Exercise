@@ -4,5 +4,6 @@ Rails.application.routes.draw do
                        registrations: 'users/registrations',
                        passwords: 'users/passwords'
                    }
- root 'application#index'
+ root 'pages#home'
+  resources :messages
 end

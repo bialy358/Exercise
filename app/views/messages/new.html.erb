@@ -1,0 +1,22 @@
+<table>
+  <%= form_for(@message) do |f| %>
+      <tr>
+        <th><%= f.label :title %></th>
+
+        <td><%= f.text_field :title %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :receiver %></th>
+        <td><%= f.text_field :receiver %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :content %></th>
+        <td><%= f.text_area :content %></td>
+      </tr>
+      <tr>
+        <td><%= f.submit %></td>
+      </tr>
+
+  <%end %>
+
+</table>
