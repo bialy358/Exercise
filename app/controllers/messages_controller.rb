@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   def index
-    @messages = Message.where('user_id = ? OR receiver_id = ?', current_user.id, current_user.id)
+    @messages = Message.messages_for(current_user)
   end
   def new
     @message = current_user.messages.new
@@ -8,11 +8,13 @@ class MessagesController < ApplicationController
 
   def create
 
+  #form_object albo interactor
     @message = current_user.messages.new(message_params)
-    if @message.save
+
+    context = CreateMessage.call(params[:message][:receiver], @message)
+    if context.success?
       redirect_to messages_path
     else
-
       render :new
     end
   end
@@ -20,7 +22,8 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:title, :content, :receiver)
+    params.require(:message).permit(:title, :content)
   end
+
 end
 

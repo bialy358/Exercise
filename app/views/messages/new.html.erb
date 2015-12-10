@@ -1,13 +1,20 @@
 <table>
   <%= form_for(@message) do |f| %>
+      <% if @message.errors.any? %>
+          <ul>
+            <% @message.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+      <% end %>
       <tr>
         <th><%= f.label :title %></th>
 
         <td><%= f.text_field :title %></td>
       </tr>
       <tr>
-        <th><%= f.label :receiver %></th>
-        <td><%= f.text_field :receiver %></td>
+        <th><%= f.label :receiver, 'Receiver e-mail' %></th>
+        <td><%= f.email_field :receiver  %></td>
       </tr>
       <tr>
         <th><%= f.label :content %></th>
