@@ -1,0 +1,13 @@
+
+<%= link_to "New Auction", new_auction_path, class: 'btn btn-primary' %>
+<table>
+  <% @auctions.each do |auction| %>
+      <tr>
+        <th>title</th>
+      </tr>
+      <tr>
+        <td><%= auction.title  %></td>
+        <td><%= session[:user_id] %></td>
+      </tr>
+
+  <% end %>

@@ -1,0 +1,35 @@
+<h1> Insert your Auction data below</h1>
+
+<table>
+  <%= form_for(@auction) do |f| %>
+      <% if @auction.errors.any? %>
+          <ul>
+            <% @auction.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+      <% end %>
+      <tr>
+        <th><%= f.label :title %></th>
+
+        <td><%= f.text_field :title %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :description %></th>
+        <td><%= f.text_area :description  %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :bid, 'Starting price' %></th>
+        <td><%= f.number_field :bid%></td>
+      </tr>
+      <tr>
+        <th><%= f.label :duration %></th>
+        <td><%= f.number_field :duration %></td>
+      </tr>
+      <tr>
+        <td><%= f.submit %></td>
+      </tr>
+
+  <%end %>
+
+</table>
