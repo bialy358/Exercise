@@ -1,13 +1,17 @@
-
+<%if user_signed_in? %>
 <%= link_to "New Auction", new_auction_path, class: 'btn btn-primary' %>
-<table>
+<%end %>
+<table class="auctions">
+      <tr>
+        <th class="title">Auction title</th>
+        <th class="bid">actual bid</th>
+        <th class="finish"> ends </th>
+      </tr>
   <% @auctions.each do |auction| %>
-      <tr>
-        <th>title</th>
+      <tr class="listing" data-link="<%= auction_path(auction) %>">
+        <td class="title"><%= auction.title  %></td>
+        <td class="bid"><%= auction.bid %></td>
+        <td class="finish"><%= auction.finish_date %></td>
       </tr>
-      <tr>
-        <td><%= auction.title  %></td>
-        <td><%= session[:user_id] %></td>
-      </tr>
-
   <% end %>
+</table>

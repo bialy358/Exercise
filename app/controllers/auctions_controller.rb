@@ -1,11 +1,11 @@
 class AuctionsController < ApplicationController
-
+  skip_before_action :authenticate_user!, only:  [:index, :show]
   def index
     @auctions = Auction.all
   end
 
   def show
-    @auction = Auction.find_by(id: params[:auction][:id])
+    @auction = Auction.find_by(id: params[:id])
   end
 
   def new
@@ -24,6 +24,6 @@ class AuctionsController < ApplicationController
   private
 
   def auction_params
-    params.require(:auction).permit(:title, :description, :duration)
+    params.require(:auction).permit(:title, :description, :duration, :bid)
   end
 end

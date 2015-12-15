@@ -20,11 +20,11 @@
       </tr>
       <tr>
         <th><%= f.label :bid, 'Starting price' %></th>
-        <td><%= f.number_field :bid%></td>
+        <td><%= f.number_field :bid, min: 0%></td>
       </tr>
       <tr>
         <th><%= f.label :duration %></th>
-        <td><%= f.number_field :duration %></td>
+        <td><%= f.number_field :duration, in: 1..14 %></td>
       </tr>
       <tr>
         <td><%= f.submit %></td>
