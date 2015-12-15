@@ -1,17 +1,14 @@
 <%= link_to "New Message", new_message_path, class: "btn btn-primary"%>
-<%= current_user.id %>
-<table>
-<% @messages.each do |message| %>
-    <tr>
-      <th>title</th>
-      <th> Author </th>
-    </tr>
-      <tr>
+
+<table class="message">
+  <tr>
+    <th class="title">title</th>
+    <th class="author"> Author </th>
+  </tr>
+  <% @messages.each do |message| %>
+      <tr class="listing" data-link=<%= message_path(message) %>)>
         <td><%= message.title  %></td>
-        <td><%= session[:user_id] %></td>
-      </tr>
-      <tr>
-        <td><%= message.content %></td>
+        <td><%= User.find_by(id: message.user.id).email %></td>
       </tr>
 <% end %>
 </table>

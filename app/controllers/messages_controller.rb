@@ -5,7 +5,9 @@ class MessagesController < ApplicationController
   def new
     @message = current_user.messages.new
   end
-
+  def show
+    @message = Message.find_by(id: params[:id])
+  end
   def create
 
   #form_object albo interactor
