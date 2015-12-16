@@ -8,4 +8,7 @@ class Message < ActiveRecord::Base
 
   scope :messages_for, ->(current_user) {where('user_id = ? OR receiver_id = ?', current_user.id, current_user.id)}
 
+  def send_date
+  self.created_at.strftime('%F %T')
+  end
 end

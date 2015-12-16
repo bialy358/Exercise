@@ -3,12 +3,14 @@
 <%end %>
 <table class="auctions">
       <tr>
+        <th class="img_thumb"></th>
         <th class="title">Auction title</th>
         <th class="bid">actual bid</th>
         <th class="finish"> ends </th>
       </tr>
   <% @auctions.each do |auction| %>
       <tr class="listing" data-link="<%= auction_path(auction) %>">
+        <td class="picture"> <%= image_tag auction.thumb %></td>
         <td class="title"><%= auction.title  %></td>
         <td class="bid"><%= auction.bid %></td>
         <td class="finish"><%= auction.finish_date %></td>

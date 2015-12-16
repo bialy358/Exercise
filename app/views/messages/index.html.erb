@@ -2,13 +2,15 @@
 
 <table class="message">
   <tr>
-    <th class="title">title</th>
-    <th class="author"> Author </th>
+    <th class="title">Message title</th>
+    <th class="author"> From </th>
+    <th class="date"> Send at</th>
   </tr>
-  <% @messages.each do |message| %>
-      <tr class="listing" data-link=<%= message_path(message) %>)>
+  <% @messages.reverse.each do |message| %>
+      <tr class="listing" data-link=<%= message_path(message) %>>
         <td><%= message.title  %></td>
         <td><%= User.find_by(id: message.user.id).email %></td>
+        <td> <%= message.send_date %></td>
       </tr>
 <% end %>
 </table>

@@ -1,35 +1,39 @@
 <h1> Insert your Auction data below</h1>
 
-<table>
   <%= form_for(@auction) do |f| %>
-      <% if @auction.errors.any? %>
-          <ul>
-            <% @auction.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-      <% end %>
-      <tr>
-        <th><%= f.label :title %></th>
+    <% if @auction.errors.any? %>
+        <ul>
+          <% @auction.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+    <% end %>
+    <div class="new_auction">
 
-        <td><%= f.text_field :title %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :description %></th>
-        <td><%= f.text_area :description  %></td>
-      </tr>
-      <tr>
-        <th><%= f.label :bid, 'Starting price' %></th>
-        <td><%= f.number_field :bid, min: 0%></td>
-      </tr>
-      <tr>
-        <th><%= f.label :duration %></th>
-        <td><%= f.number_field :duration, in: 1..14 %></td>
-      </tr>
-      <tr>
-        <td><%= f.submit %></td>
-      </tr>
+      <p class ="title"><%= f.label :title %></p>
+      <p><%= f.text_field :title %></p>
+
+      <p><%= f.label :description %></p>
+
+      <div class="description">
+        <%= f.text_area :description  %>
+      </div>
+      <p>
+      <%= f.label :bid, 'Starting price' %>
+      <%= f.number_field :bid, min: 0%>
+
+      <%= f.label :duration %>
+      <%= f.number_field :duration, in: 1..14 %>
+      </p>
+
+      <p  class="picture">
+            <%= f.file_field :picture %>
+      </p>
+
+      <p>
+      <%= f.submit %>
+      </p>
+    </div>
 
   <%end %>
 
-</table>
