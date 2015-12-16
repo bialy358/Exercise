@@ -4,6 +4,6 @@ rvm:
 before_script:
   - cp config/database.yml.sample config/database.yml
   - psql -c 'create database auction_house_test' -U postgres
-  - rake db:restart RAIL_ENV=test
+  - bundle exec rake db:restart RAIL_ENV=test
 addons:
   postgresql: '9.3'
