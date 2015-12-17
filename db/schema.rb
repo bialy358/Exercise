@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216075828) do
+ActiveRecord::Schema.define(version: 20151216134348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,14 +20,24 @@ ActiveRecord::Schema.define(version: 20151216075828) do
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
-    t.decimal  "bid",         default: 0.0, null: false
+    t.decimal  "starting_price",   default: 0.0, null: false
     t.integer  "duration"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "picture"
   end
-
   add_index "auctions", ["user_id"], name: "index_auctions_on_user_id", using: :btree
+
+  create_table "bids", force: :cascade do |t|
+    t.decimal  "value",      default: 0.0, null: false
+    t.integer  "auction_id"
+    t.integer  "user_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id", using: :btree
+  add_index "bids", ["auction_id"], name: "index_bids_on_auction_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.text     "title"
@@ -61,5 +71,7 @@ ActiveRecord::Schema.define(version: 20151216075828) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "auctions", "users"
+  add_foreign_key "bids", "users"
+  add_foreign_key "bids", "auctions"
   add_foreign_key "messages", "users"
 end

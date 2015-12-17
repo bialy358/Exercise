@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :messages
   has_many :auctions
-
+  has_many :bids
 end
