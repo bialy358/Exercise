@@ -7,4 +7,6 @@ Rails.application.routes.draw do
  root 'pages#home'
   resources :messages
   resources :auctions
+  get 'bid' => 'auctions#show'
+  patch 'bid' => 'auctions#make_bid'
 end

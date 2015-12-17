@@ -2,8 +2,10 @@ class Auction < ActiveRecord::Base
   belongs_to :user
   has_one :bid
 
+  accepts_nested_attributes_for :bid
   mount_uploader :picture, PictureUploader
 
+  validates :starting_price, presence: true
   validates :user_id, presence: true
   validates :title, presence: true, length: {maximum: 50}
   validates :description, presence: true

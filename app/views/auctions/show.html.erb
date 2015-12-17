@@ -1,9 +1,23 @@
 <div>
-    <div>
+    <div class="title">
       <h1> <%= @auction.title %></h1>
-      <h3> <%= @auction.description %></h3>
-      <%= image_tag @auction.image%>
-
     </div>
 
+    <div class="image_and_bid">
+      <%= image_tag @auction.image%>
+
+      <%= form_for(@auction.bid, include_id: true) do |f| %>
+
+          <%= f.label :value, 'Price:'%>
+          <%= f.number_field :value, min: @auction.bid.value%>
+
+          <%= f.submit %>
+      <% end %>
+      <%= @auction.bid.value %>
+      <%= link_to %>
+    </div>
+
+    <div class="description">
+       <h2><%= @auction.description %></h2>
+    </div>
 </div>
