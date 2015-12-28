@@ -26,7 +26,6 @@ class AuctionsController < ApplicationController
   def create
     @auction = current_user.auctions.new(auction_params)
     if @auction.save
-      @auction.starting_bid
       redirect_to auctions_path
     else
       render :new

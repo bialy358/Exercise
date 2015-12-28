@@ -5,6 +5,8 @@ class Auction < ActiveRecord::Base
   accepts_nested_attributes_for :bid
   mount_uploader :picture, PictureUploader
 
+  define_callbacks :create
+
   validates :starting_price, presence: true
   validates :user_id, presence: true
   validates :title, presence: true, length: {maximum: 50}
@@ -13,8 +15,14 @@ class Auction < ActiveRecord::Base
   validate :image_size
   validate :duration?
 
+  def create
+    run_callbacks :create do
 
-  # after_create :create_bid
+    end
+  end
+
+  after_create :create_starting_bid
+
   def finish_date
     date=self.created_at + self.duration.days
     date.strftime('%F %T')
@@ -37,12 +45,13 @@ class Auction < ActiveRecord::Base
     end
   end
 
-  def starting_bid
-    Bid.create(value: starting_price, user_id: user_id, auction_id: id)
-  end
+
 
   private
 
+  def create_starting_bid
+    Bid.create(value: starting_price, user_id: user_id, auction_id: id)
+  end
 
 
     def image_size
