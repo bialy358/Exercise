@@ -13,6 +13,8 @@ class Auction < ActiveRecord::Base
   validate :image_size
   validate :duration?
 
+
+  # after_create :create_bid
   def finish_date
     date=self.created_at + self.duration.days
     date.strftime('%F %T')
@@ -35,7 +37,13 @@ class Auction < ActiveRecord::Base
     end
   end
 
+  def starting_bid
+    Bid.create(value: starting_price, user_id: user_id, auction_id: id)
+  end
+
   private
+
+
 
     def image_size
       if picture.size > 512.kilobytes

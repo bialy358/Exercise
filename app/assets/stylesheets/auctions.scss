@@ -1,6 +1,28 @@
+table.auction{
+  background-color: none;
+  th.img {
+    width: 60%;
+  }
+  th.bid {
+    width: 34%;
+  }
+  input{
+    display: inline-table;
+  }
+}
+
 table.auctions {
   border-collapse: collapse;
   border-spacing: 0px;
+  tr:nth-child(even) {
+    background-color: #bcb59e
+  }
+  tr:nth-child(odd) {
+    background-color: #cfc8b0
+  }
+  tr:first-child {
+    background-color: inherit
+  }
   tr {
     &:first-child {
       background-color: inherit
@@ -51,18 +73,19 @@ th.finish {
   padding-left: 15px;;
   width: 30%;
 }
-tr:nth-child(even) {
-  background-color: #bcb59e
-}
-tr:nth-child(odd) {
-  background-color: #cfc8b0
-}
-tr:first-child {
-  background-color: inherit
-}
+
 table.message {
   border-collapse: collapse;
   border-spacing: 0px;
+  tr:nth-child(even) {
+    background-color: #bcb59e
+  }
+  tr:nth-child(odd) {
+    background-color: #cfc8b0
+  }
+  tr:first-child {
+    background-color: inherit
+  }
   th.title {
     padding-left: 15px;
     width: 60%;

@@ -13,18 +13,20 @@ class AuctionsController < ApplicationController
   def new
     @auction = current_user.auctions.new
   end
+
   def make_bid
     user = current_user.id
     bid = Bid.find_by(id: params[:format])
     bid.update!(value: params[:bid][:value], user_id: user)
-    redirect_to auctions_path
+    @auction = Auction.find_by(id: bid.auction_id)
+    redirect_to @auction
   end
 
-
+#
   def create
     @auction = current_user.auctions.new(auction_params)
     if @auction.save
-      Bid.create(value: @auction.starting_price, user_id: @auction.user_id, auction_id: @auction.id)
+      @auction.starting_bid
       redirect_to auctions_path
     else
       render :new
@@ -36,6 +38,5 @@ class AuctionsController < ApplicationController
   def auction_params
     params.require(:auction).permit(:title, :description, :duration, :picture, :starting_price)
   end
-  def bid_params
-  end
+
 end
