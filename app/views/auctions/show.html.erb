@@ -11,7 +11,7 @@
     <td class="bid">
       <p> Current price: <%=@bid.value %></p>
       <p> Last bid at: <%=@bid.created_at.strftime('%T %F') %></p>
-      <%= form_for([@auction, @auction.bids.new], {url: auction_bids_path(@auction)}) do |f| %>
+      <%= form_for([@auction, @auction.bids.new]) do |f| %>
           <br><%= f.label :value, 'Your price:'%>
           <%= f.number_field :value%>
 

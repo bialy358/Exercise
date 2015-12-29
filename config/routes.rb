@@ -7,7 +7,7 @@ Rails.application.routes.draw do
  root 'pages#home'
   resources :messages
   resources :auctions do
-    resources :bids, only: [:create, :new]
+    resources :bids
   end
 
 end

@@ -1,16 +1,21 @@
 class BidsController < ApplicationController
 
   def create
-    binding.pry
-    @bid = Bid.new(bids_params, user_id: current_user)
+    @auction = find_auction
+    @bid = @auction.bids.new(bids_params)
+    @bid.user_id = current_user.id
     if @bid.save
       redirect_to auctions_path
     else
-
+      redirect_to @auction
     end
   end
 
   private
+
+  def find_auction
+    Auction.find(params[:auction_id])
+  end
 
   def bids_params
     params.require(:bid).permit(:value)
