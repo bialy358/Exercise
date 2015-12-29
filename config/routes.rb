@@ -6,7 +6,8 @@ Rails.application.routes.draw do
                    }
  root 'pages#home'
   resources :messages
-  resources :auctions
-  get 'bid' => 'auctions#show'
-  patch 'bid' => 'auctions#make_bid'
+  resources :auctions do
+    resources :bids, only: [:create, :new]
+  end
+
 end

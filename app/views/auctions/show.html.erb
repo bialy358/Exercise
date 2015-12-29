@@ -9,13 +9,13 @@
   <tr>
     <td class="img"><%= image_tag @auction.image%></td>
     <td class="bid">
-      <p> Current price: <%=@auction.bid.value %></p>
-      <p> Last bid at: <%=@auction.bid.updated_at.strftime('%T %F') %></p>
-      <%= form_for(@auction.bid, include_id: true) do |f| %>
+      <p> Current price: <%=@bid.value %></p>
+      <p> Last bid at: <%=@bid.created_at.strftime('%T %F') %></p>
+      <%= form_for([@auction, @auction.bids.new], {url: auction_bids_path(@auction)}) do |f| %>
           <br><%= f.label :value, 'Your price:'%>
-          <%= f.number_field :value, min: @auction.bid.value%>
+          <%= f.number_field :value%>
 
-        <br> <%= f.submit %>
+          <br> <%= f.submit %>
       <% end %>
     </td>
   </tr>

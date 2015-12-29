@@ -1,8 +1,8 @@
 class Auction < ActiveRecord::Base
   belongs_to :user
-  has_one :bid
+  has_many :bids
 
-  accepts_nested_attributes_for :bid
+  accepts_nested_attributes_for :bids
   mount_uploader :picture, PictureUploader
 
   define_callbacks :create
@@ -24,7 +24,7 @@ class Auction < ActiveRecord::Base
   after_create :create_starting_bid
 
   def finish_date
-    date=self.created_at + self.duration.days
+    date=created_at + duration.days
     date.strftime('%F %T')
   end
 
@@ -41,11 +41,8 @@ class Auction < ActiveRecord::Base
       picture.thumb.url
     else
       'thumb_logo.png'
-
     end
   end
-
-
 
   private
 

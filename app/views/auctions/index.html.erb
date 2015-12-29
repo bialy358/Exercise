@@ -12,7 +12,7 @@
       <tr class="listing" data-link="<%= auction_path(auction) %>">
         <td class="picture"> <%= image_tag auction.thumb %></td>
         <td class="title"><%= auction.title  %></td>
-        <td class="bid"><%= auction.bid.value%></td>
+        <td class="bid"><%= auction.bids.last.value%></td>
         <td class="finish"><%= auction.finish_date %></td>
       </tr>
   <% end %>
