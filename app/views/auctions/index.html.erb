@@ -5,15 +5,29 @@
       <tr>
         <th class="img_thumb"></th>
         <th class="title">Auction title</th>
-        <th class="bid">actual bid</th>
-        <th class="finish"> ends </th>
+        <th class="bid">Highest bid</th>
+        <th class="finish"> Ends in</th>
       </tr>
-  <% @auctions.each do |auction| %>
+  <% @auctions.sort_by(&:finish_date).reverse.each do |auction| %>
       <tr class="listing" data-link="<%= auction_path(auction) %>">
         <td class="picture"> <%= image_tag auction.thumb %></td>
         <td class="title"><%= auction.title  %></td>
         <td class="bid"><%= auction.bids.last.value%></td>
-        <td class="finish"><%= auction.finish_date %></td>
+        <td class="finish">
+          <% if auction.finish_date > DateTime.now %>
+          <div data-countdown="<%= auction.finish_date %>"></div></p>
+          <script type="text/javascript">
+              $('[data-countdown]').each(function() {
+                  var $this = $(this), finalDate = $(this).data('countdown');
+                  $this.countdown(finalDate, function(event) {
+                      $this.html(event.strftime('%-D day%!D %H:%M:%S'));
+                  });
+              });
+          </script>
+          <% else %>
+          <p>finished</p>
+          <% end %>
+        </td>
       </tr>
   <% end %>
 </table>

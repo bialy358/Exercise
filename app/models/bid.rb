@@ -22,9 +22,12 @@ private
       errors.add(:value, "Incorect value")
     end
 
-    if value < Bid.where(auction_id: auction.id).last.value
-      errors.add(:value, "You must bid up last price")
+    if !Bid.find_by(auction_id: auction.id).nil?
+        if value <= Bid.where(auction_id: auction.id).last.value
+          errors.add(:value, "You must bid up last price")
+        end
     end
+
   end
 end
 

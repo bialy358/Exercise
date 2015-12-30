@@ -26,6 +26,10 @@ class Auction < ActiveRecord::Base
     date=created_at + duration.days
     date.strftime('%F %T')
   end
+  def finish_in
+    date=created_at + duration.days
+    date.strftime("%Y/%m/%d %T")
+  end
 
   def image
     if picture?
