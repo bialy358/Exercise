@@ -23,8 +23,8 @@
              $(this).html(event.strftime(format));
           });
         </script>
-          <p> Current price: <%=@bid.value %></p>
-          <p> Last bid at: <%=@bid.created_at.strftime('%T %F') %></p>
+          <p> Current price: <%=@bid.last.value %></p>
+          <p> Last bid at: <%=@bid.last.created_at.strftime('%T %F') %></p>
           <%= form_for([@auction, @auction.bids.new]) do |f| %>
               <br><%= f.label :value, 'Your price:'%>
               <%= f.number_field :value, min: 0%>
@@ -33,12 +33,30 @@
           <% end %>
       <% else %>
           <p>Auction finished !</p>
-          <p>Higher bid: <%= @bid.value %></p>
-          <p>Set by: <%= User.find_by(id: @bid.user_id).email[0..3] + "..." %></p>
+          <p>Higher bid: <%= @bid.last.value %></p>
+          <p>Won by: <%= User.find_by(id: @bid.last.user_id).email[0..3] + "..." %></p>
       <% end %>
     </td>
   </tr>
 </table>
 <div class="description">
   <h2><%= @auction.description %></h2>
+</div>
+
+<div class="Biding history">
+  <h2> Biding history </h2>
+    <table>
+      <tr>
+        <th> User </th>
+        <th> Price </th>
+        <th> Date </th>
+      </tr>
+      <% @bid.reverse.each do |bid|%>
+      <tr>
+        <td> <%= User.find_by(id: bid.user_id).email[0..3] +"..." %> </td>
+        <td> <%= bid.value  %></td>
+        <td> <%= bid.created_at %></td>
+      </tr>
+      <% end %>
+    </table>
 </div>

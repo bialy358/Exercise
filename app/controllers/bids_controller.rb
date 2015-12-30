@@ -5,7 +5,7 @@ class BidsController < ApplicationController
     @bid = @auction.bids.new(bids_params)
     @bid.user_id = current_user.id
     if @bid.save
-      redirect_to auctions_path
+      redirect_to @auction
     else
       redirect_to @auction
     end
