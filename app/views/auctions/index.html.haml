@@ -1,0 +1,19 @@
+- if user_signed_in?
+  = link_to "New Auction", new_auction_path, class: 'btn btn-primary'
+%table.auctions
+  %tr
+    %th.img_thumb
+    %th.title Auction title
+    %th.bid Highest bid
+    %th.finish Ends in
+  - @auctions.sort_by(&:finish_date).reverse.each do |auction|
+    %tr.listing{"data-link" => "#{auction_path(auction)}"}
+      %td.picture
+        = image_tag auction.thumb
+      %td.title= auction.title
+      %td.bid= auction.bids.last.value
+      %td.finish
+        - if auction.finish_date > DateTime.now
+          %div{"data-countdown" => "#{auction.finish_date}"}
+        - else
+          %p finished

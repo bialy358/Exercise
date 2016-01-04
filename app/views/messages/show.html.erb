@@ -1,9 +1,0 @@
-<div>
-  <div>
-    <h1> Title: <%= @message.title %></h1>
-    <h2> From: <%= User.find_by(id: @message.user_id).email %></h2>
-    <h2> To: <%= User.find_by(id: @message.receiver_id).email %></h2>
-    <h3> Content: <%= @message.content %></h3>
-  </div>
-
-</div>

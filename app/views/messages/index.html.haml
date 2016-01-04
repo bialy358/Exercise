@@ -1,0 +1,13 @@
+= link_to "New Message", new_message_path, class: "btn btn-primary"
+%table.message
+  %tr
+    %th.title Message title
+    %th.author From
+    %th.date Send at
+  - @messages.reverse.each do |message|
+    %tr.listing{"data-link" => "<haml_loud"}
+      message_path(message) &gt;
+      %td= message.title
+      %td= User.find_by(id: message.user.id).email
+      %td
+        = message.send_date

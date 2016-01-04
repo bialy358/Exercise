@@ -1,0 +1,21 @@
+%h1 Insert your Auction data below
+= form_for(@auction) do |f|
+  - if @auction.errors.any?
+    %ul
+      - @auction.errors.full_messages.each do |msg|
+        %li= msg
+  .new_auction
+    %p.title= f.label :title
+    %p= f.text_field :title
+    %p= f.label :description
+    .description
+      = f.text_area :description
+    %p
+      = f.label :starting_price
+      = f.number_field :starting_price, min: 0
+      = f.label :duration
+      = f.number_field :duration, in: 1..14
+    %p.picture
+      = f.file_field :picture
+    %p
+      = f.submit

@@ -1,0 +1,13 @@
+%nav.navbar.navbar-fixed-top
+  .container-fluid
+    %ul.nav.navbar-nav
+      %li= link_to "Auctions", auctions_path
+      %li= link_to "Contact", '#'
+      %li= link_to "Help", '#'
+    %ul.nav.navbar-nav.navbar-right
+      - unless  user_signed_in?
+        %li= link_to "Log in", new_user_session_path
+        %li= link_to "Sign up", new_user_registration_path
+      - else
+        %li= link_to "Messages", messages_path
+        %li= link_to "Log out", destroy_user_session_path, method: :delete

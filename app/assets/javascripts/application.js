@@ -12,9 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require countdown
 //= require_tree .
 $(document).ready(function(){
     $('tr.listing[data-link]').click(function() {
         window.location = $(this).data("link")
     });
+
 });
