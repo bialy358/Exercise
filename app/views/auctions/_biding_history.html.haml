@@ -1,0 +1,13 @@
+%table
+  %tr
+    %th User
+    %th Price
+    %th Date
+  - @bids[1..-1].reverse.each do |bid|
+    %tr
+      %td
+        = User.find_by(id: bid.user_id).email[0..3] +"..."
+      %td
+        = bid.value
+      %td
+        = bid.created_at

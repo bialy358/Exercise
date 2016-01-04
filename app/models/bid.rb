@@ -18,16 +18,17 @@ private
   end
 
   def value?
-    if value < 0
+    if value.nil?
       errors.add(:value, "Incorect value")
-    end
-
-    if !Bid.find_by(auction_id: auction.id).nil?
+    elsif value < 0
+      errors.add(:value, "Incorect value")
+    else
+      unless Bid.find_by(auction_id: auction.id).nil?
         if value <= Bid.where(auction_id: auction.id).last.value
           errors.add(:value, "You must bid up last price")
         end
+      end
     end
-
   end
 end
 

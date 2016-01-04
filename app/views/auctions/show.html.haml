@@ -1,51 +1,13 @@
 .title
   %h1
     = @auction.title
-%table.auction
-  %tr
-    %th.img
-    %th.bid
-  %tr
-    %td.img= image_tag @auction.image
-    %td.bid
-      - if @auction.finish_date > DateTime.now
-        %p Auction ends in:
-        %div{"data-countdown" => "#{@auction.finish_date}"}
-        %p
-          Current price: #{@bid.last.value}
-        %p
-          Last bid at: #{@bid.last.created_at.strftime('%T %F')}
-        = form_for([@auction, @auction.bids.new]) do |f|
-          %br/
-          = f.label :value, 'Your price:'
-          = f.number_field :value, min: 0
-          %br/
-          = f.submit
-      - else
-        %p Auction finished !
-        %p
-          Higher bid: #{@bid.last.value}
-        %p
+=render 'auction_details'
 
-          Won by:
-          - if @auction.user_id == current_user.id
-            #{User.find_by(id: @bid.last.user_id).email}
-          - else
-            #{User.find_by(id: @bid.last.user_id).email[0..3] + "..."}
 .description
   %h2= @auction.description
+
 .Biding.history
   %h2 Biding history
-  %table
-    %tr
-      %th User
-      %th Price
-      %th Date
-    - @bid.reverse.each do |bid|
-      %tr
-        %td
-          = User.find_by(id: bid.user_id).email[0..3] +"..."
-        %td
-          = bid.value
-        %td
-          = bid.created_at
+
+=render 'biding_history'
+

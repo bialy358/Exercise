@@ -9,7 +9,8 @@ class AuctionsController < ApplicationController
 
   def show
     @auction = Auction.find_by(id: params[:id])
-    @bid = Bid.where(auction_id: @auction.id)
+    @new_bid = @auction.bids.new
+    @bids = Bid.where(auction_id: @auction.id)
   end
 
   def new

@@ -2,12 +2,13 @@ class BidsController < ApplicationController
 
   def create
     @auction = find_auction
-    @bid = @auction.bids.new(bids_params)
-    @bid.user_id = current_user.id
-    if @bid.save
+    @new_bid = @auction.bids.new(bids_params)
+    @new_bid.user_id = current_user.id
+    if @new_bid.save
       redirect_to @auction
     else
-      redirect_to @auction
+      @bids = Bid.where(auction_id: @auction.id)
+      render 'auctions/show'
     end
   end
 
