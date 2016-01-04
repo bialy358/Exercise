@@ -5,8 +5,7 @@
     %th.author From
     %th.date Send at
   - @messages.reverse.each do |message|
-    %tr.listing{"data-link" => "<haml_loud"}
-      message_path(message) &gt;
+    %tr.listing{"data-link" => "#{message_path(message)}"}
       %td= message.title
       %td= User.find_by(id: message.user.id).email
       %td

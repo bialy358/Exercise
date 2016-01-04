@@ -26,7 +26,12 @@
         %p
           Higher bid: #{@bid.last.value}
         %p
-          Won by: #{User.find_by(id: @bid.last.user_id).email[0..3] + "..."}
+
+          Won by:
+          - if @auction.user_id == current_user.id
+            #{User.find_by(id: @bid.last.user_id).email}
+          - else
+            #{User.find_by(id: @bid.last.user_id).email[0..3] + "..."}
 .description
   %h2= @auction.description
 .Biding.history

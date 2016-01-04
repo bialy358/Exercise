@@ -47,6 +47,8 @@ class Auction < ActiveRecord::Base
     end
   end
 
+  scope :my_auctions, ->(current_user) {where('user_id = ?', current_user.id)}
+
   private
 
   def create_starting_bid

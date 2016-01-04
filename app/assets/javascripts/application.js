@@ -18,5 +18,4 @@ $(document).ready(function(){
     $('tr.listing[data-link]').click(function() {
         window.location = $(this).data("link")
     });
-
 });
