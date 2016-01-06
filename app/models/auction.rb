@@ -13,6 +13,7 @@ class Auction < ActiveRecord::Base
   validates :duration, presence: true
   validate :image_size
   validate :duration?
+  validate :starting_price?
 
   def create
     run_callbacks :create do
@@ -25,10 +26,6 @@ class Auction < ActiveRecord::Base
   def finish_date
     date=created_at + duration.days
     date.strftime('%F %T')
-  end
-  def finish_in
-    date=created_at + duration.days
-    date.strftime("%Y/%m/%d %T")
   end
 
   def image
@@ -49,6 +46,10 @@ class Auction < ActiveRecord::Base
 
   scope :my_auctions, ->(current_user) {where('user_id = ?', current_user.id)}
 
+
+
+
+
   private
 
   def create_starting_bid
@@ -63,11 +64,19 @@ class Auction < ActiveRecord::Base
     end
 
     def duration?
-      if duration.nil?
-        errors.add(:duration, "should be between 1 - 14")
-      elsif duration < 1 || duration > 14
-        errors.add(:duration, "should be between 1 - 14")
+      unless duration.nil?
+        if duration < 1 || duration > 14
+          errors.add(:duration, "should be between 1 - 14")
         end
+      end
+    end
+
+    def starting_price?
+      unless starting_price.nil?
+        if starting_price < 0
+          errors.add(:value, "of starting price should be positive")
+        end
+      end
     end
 
 end

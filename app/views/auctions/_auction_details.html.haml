@@ -5,35 +5,41 @@
   %tr
     %td.img= image_tag @auction.image
     %td.bid
-      -if @auction.user_id != current_user.id
-        =link_to "Message seller", {controller: "messages", action: "new",
-         receiver: User.find_by(id: @auction.user_id).email, title: @auction.title}, class: 'btn btn-primary'
-      - if @auction.finish_date > DateTime.now
-        %p Auction ends in:
-        %div{"data-countdown" => "#{@auction.finish_date}"}
-        %p Current price: #{@bids.last.value}
-        %p Last bid at: #{@bids.last.created_at.strftime('%T %F')}
+      - unless current_user.nil?
         - if @auction.user_id != current_user.id
-          = form_for([@auction, @auction.bids.new]) do |f|
-            - if @new_bid.errors.any?
-              %ul
-                - @new_bid.errors.full_messages.each do |msg|
-                  %li= msg
-            %br/
-            = f.label :value, 'Your price:'
-            = f.number_field :value, min: 0
-            %br/
-            = f.submit
-      - else
-        %p Auction finished !
-        %p
-          Highest bid: #{@bids.last.value}
-        %p
-
-          Won by:
-          - if @auction.user_id == current_user.id
-            #{User.find_by(id: @bids.last.user_id).email}
-            =link_to "Message winner", {controller: "messages", action: "new",
-             receiver: User.find_by(id: @bids.last.user_id).email, title: @auction.title}, class: 'btn btn-primary'
+          =link_to "Message seller", {controller: "messages", action: "new",
+            receiver: User.find_by(id: @auction.user_id).email, title: @auction.title}, class: 'btn btn-primary'
+        - if @auction.finish_date >  DateTime.now
+          %p Auction ends in:
+          %div{"data-countdown" => "#{@auction.finish_date}"}
+          %p Current price: #{@bids.last.value}
+          %p Last bid at: #{@bids.last.created_at.strftime('%T %F')}
+          - if @auction.user_id != current_user.id
+            = form_for([@auction, @auction.bids.new]) do |f|
+              - if @new_bid.errors.any?
+                %ul
+                  - @new_bid.errors.full_messages.each do |msg|
+                    %li= msg
+              %br/
+              = f.label :value, 'Your price:'
+              = f.number_field :value, min: 0
+              %br/
+              = f.submit
+        - else
+          %p Auction finished !
+          - unless @bids.count <= 1
+            %p Highest bid: #{@bids.last.value}
+            %p Won by:
+            - if @auction.user_id == current_user.id
+              #{User.find_by(id: @bids.last.user_id).email}
+              =link_to "Message winner", {controller: "messages", action: "new",
+               receiver: User.find_by(id: @bids.last.user_id).email, title: @auction.title}, class: 'btn btn-primary'
+            - else
+              #{User.find_by(id: @bids.last.user_id).email[0..3] + "..."}
           - else
-            #{User.find_by(id: @bids.last.user_id).email[0..3] + "..."}
+            %p There is no winner at this auction.
+      -else
+        %p To make a bid please
+        =link_to "Log in", new_user_session_path, class: 'btn btn-info'
+        or
+        = link_to "Sign up", new_user_registration_path, class: 'btn btn-info'

@@ -1,8 +1,7 @@
 - if user_signed_in?
   = link_to "New Auction", new_auction_path, class: 'btn btn-primary'
-
-%h3 My Auctions
-=render partial: 'auctions', locals: {auction: @my_auctions}
+  %h3 My Auctions
+  =render partial: 'auctions', locals: {auction: @my_auctions}
 
 %h3 All Auctions
 =render partial: 'auctions', locals: {auction: @auctions}

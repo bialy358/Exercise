@@ -4,7 +4,9 @@ class AuctionsController < ApplicationController
 
   def index
     @auctions = Auction.all
-    @my_auctions = Auction.my_auctions(current_user)
+    unless current_user.nil?
+      @my_auctions = Auction.my_auctions(current_user)
+    end
   end
 
   def show
