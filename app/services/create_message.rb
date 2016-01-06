@@ -31,8 +31,15 @@ class CreateMessage
   end
 
   def validate_receiver
-    @message.errors.add(:receiver, 'bledny format') unless param_receiver.match(VALID_EMAIL_REGEX)
-    @message.errors.add(:receiver, 'nie ma huja') unless @receiver
+
+    @message.errors.add(:receiver, 'Ensure that email is in xx@xx.xx format') unless param_receiver.match(VALID_EMAIL_REGEX)
+    unless @receiver
+      @message.errors.add(:receiver, 'There is not such user')
+    else
+      if @receiver.id == @message.user_id
+        @message.errors.add(:receiver, "You can't send message to yourself")
+      end
+    end
   end
 
 end
