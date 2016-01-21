@@ -16,6 +16,7 @@ gem 'carrierwave',             '0.10.0'
 gem 'mini_magick',             '3.8.0'
 gem 'fog',                     '1.36.0'
 gem 'haml-rails'
+gem 'sendgrid'
 
 
 group :development, :test do
