@@ -1,4 +1,4 @@
-Excersie with buliding auction house app
+Exercise with building auction house app
 =================
 
-Travis status: ![Travis](https://travis-ci.org/bialy358/Exersice.svg)
+Travis status: ![![Build Status](https://travis-ci.org/bialy358/Exercise.svg?branch=master)](https://travis-ci.org/bialy358/Exercise))
